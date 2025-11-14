@@ -6,6 +6,7 @@ const connectDB = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
 const callRoutes = require('./routes/callRoutes');
 const scheduledCallRoutes = require('./routes/scheduledCallRoutes');
+const importRoutes = require('./routes/importRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 8001;
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/calls', callRoutes);
 app.use('/api/scheduled-calls', scheduledCallRoutes);
+app.use('/api/import', importRoutes);
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Server is running' });

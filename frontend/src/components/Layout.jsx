@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LayoutDashboard, Phone, Calendar, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Phone, Calendar, LogOut, Menu, X, FileSpreadsheet } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export const Layout = ({ children, currentPage, onNavigate }) => {
@@ -10,6 +10,8 @@ export const Layout = ({ children, currentPage, onNavigate }) => {
     { name: 'Dashboard', icon: LayoutDashboard, page: 'dashboard' },
     { name: 'Call Logs', icon: Phone, page: 'logs' },
     { name: 'Schedule Call', icon: Calendar, page: 'schedule' },
+    { name: 'Import Excel', icon: FileSpreadsheet, page: 'import' },
+    { name: 'Edit Data', icon: FileSpreadsheet, page: 'edit-data' },
   ];
 
   const handleSignOut = async () => {

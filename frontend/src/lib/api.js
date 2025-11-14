@@ -153,4 +153,43 @@ export const api = {
       return handleResponse(response);
     },
   },
+
+  import: {
+    upload: async (formData) => {
+      const token = getAuthToken();
+      const response = await fetch(`${API_BASE_URL}/import/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      return handleResponse(response);
+    },
+
+    save: async (data) => {
+      const token = getAuthToken();
+      const response = await fetch(`${API_BASE_URL}/import/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      return handleResponse(response);
+    },
+
+    getHistory: async () => {
+      const token = getAuthToken();
+      const response = await fetch(`${API_BASE_URL}/import/history`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      return handleResponse(response);
+    },
+  },
 };

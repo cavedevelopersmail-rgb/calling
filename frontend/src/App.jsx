@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ImportProvider } from './contexts/ImportContext';
 import { Layout } from './components/Layout';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
 import { CallLogs } from './pages/CallLogs';
 import { ScheduleCall } from './pages/ScheduleCall';
+import { ImportScheduledCalls } from './pages/ImportScheduledCalls';
+import { EditImportData } from './pages/EditImportData';
 
 function AppContent() {
   const { user, loading } = useAuth();
@@ -30,6 +33,10 @@ function AppContent() {
         return <CallLogs />;
       case 'schedule':
         return <ScheduleCall />;
+      case 'import':
+        return <ImportScheduledCalls />;
+      case 'edit-data':
+        return <EditImportData />;
       default:
         return <Dashboard />;
     }
@@ -45,7 +52,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <ImportProvider>
+        <AppContent />
+      </ImportProvider>
     </AuthProvider>
   );
 }
