@@ -1,14 +1,14 @@
-const API_BASE_URL = 'http://localhost:8001/api';
+const API_BASE_URL = "http://localhost:8001/api";
 
 const getAuthToken = () => {
-  return localStorage.getItem('authToken');
+  return localStorage.getItem("authToken");
 };
 
 const handleResponse = async (response) => {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong');
+    throw new Error(data.message || "Something went wrong");
   }
 
   return data;
@@ -18,9 +18,9 @@ export const api = {
   auth: {
     signUp: async (email, password) => {
       const response = await fetch(`${API_BASE_URL}/auth/signup`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
@@ -29,21 +29,21 @@ export const api = {
 
     signIn: async (email, password) => {
       const response = await fetch(`${API_BASE_URL}/auth/signin`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
       const data = await handleResponse(response);
       if (data.token) {
-        localStorage.setItem('authToken', data.token);
+        localStorage.setItem("authToken", data.token);
       }
       return data;
     },
 
     signOut: async () => {
-      localStorage.removeItem('authToken');
+      localStorage.removeItem("authToken");
       return { success: true };
     },
 
@@ -52,10 +52,10 @@ export const api = {
       if (!token) return null;
 
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       return handleResponse(response);
@@ -66,10 +66,10 @@ export const api = {
     getAll: async () => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/calls`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       return handleResponse(response);
@@ -78,10 +78,10 @@ export const api = {
     create: async (callData) => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/calls`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(callData),
       });
@@ -93,10 +93,10 @@ export const api = {
     getAll: async () => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/scheduled-calls`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       return handleResponse(response);
@@ -105,10 +105,10 @@ export const api = {
     create: async (callData) => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/scheduled-calls`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(callData),
       });
@@ -118,10 +118,10 @@ export const api = {
     update: async (id, callData) => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/scheduled-calls/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(callData),
       });
@@ -131,10 +131,10 @@ export const api = {
     delete: async (id) => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/scheduled-calls/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       return handleResponse(response);
@@ -142,14 +142,17 @@ export const api = {
 
     updateStatus: async (id, status) => {
       const token = getAuthToken();
-      const response = await fetch(`${API_BASE_URL}/scheduled-calls/${id}/status`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status }),
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/scheduled-calls/${id}/status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ status }),
+        }
+      );
       return handleResponse(response);
     },
   },
@@ -158,9 +161,9 @@ export const api = {
     upload: async (formData) => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/import/upload`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
@@ -170,10 +173,10 @@ export const api = {
     save: async (data) => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/import/save`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -183,10 +186,10 @@ export const api = {
     getHistory: async () => {
       const token = getAuthToken();
       const response = await fetch(`${API_BASE_URL}/import/history`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       return handleResponse(response);
